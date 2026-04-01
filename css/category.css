@@ -165,7 +165,7 @@ main.container {
     text-align: center;
 }
 
-.remaining-box, .month-box, .month-budget-box {
+.remaining-box, .month-box {
     background: #FFFFFF;
     width: 100%;
     padding: 20px;
@@ -181,96 +181,121 @@ main.container {
     margin-top: 5px;
 }
 
-.month-budget-box {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
+.category-management {
+    width: 100%;
+    max-width: 768px;
+    background-color: #FFFFFF;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
 }
 
-.month-budget-box input, .month-box input {
-    padding: 8px 12px;
+.category-management h3 {
+    margin-top: 0;
+    color: #212529;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 28px;
+}
+
+.management-form form {
+    display: flex;
+    margin-top: 22px;
+    margin-bottom: 30px;
+}
+
+.management-form input {
+    flex: 1;
+    padding: 12px 15px;
     border: 1px solid #DEE2E6;
     border-radius: 6px;
+    outline: none;
+    font-size: 16px;
 }
 
-.month-budget-box button {
-    padding: 8px 20px;
-    background: #4F46E5;
+.btn-add {
+    background: #4F46E5; 
     color: #FFFFFF;
     border: none;
     border-radius: 6px;
+    padding: 0 25px;
     cursor: pointer;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
 }
 
-.month-budget-box button:hover {
-    background: #3730a3;
+.btn-add:hover {
+    background: #3730A3;
 }
 
-.personal-information {
-    width: 100%;
-    max-width: 768px;
-    margin: 0 auto;
+.categories-list {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.first-row, .second-row {
+.first-row-list, .second-row-list, .third-row-list {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr); 
     gap: 20px;
-    width: 100%;
-    text-align: left;
 }
 
-.input-group {
+.category-item {
+    width: 212px;
+    background: #FFFFFF;
+    border: 1px solid #D9D9D9;
+    border-radius: 8px;
+    padding: 20px;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    position: relative;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
 }
 
-.personal-information span {
+.item-icon {
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+}
+
+.item-content {
+    display: flex;
+    flex-direction: column; 
+    flex-grow: 1; 
+    margin-left: 15px;
+}
+
+.category-item span {
     display: block;
-    font-size: 14px;
+    font-size: 18px;
     font-weight: 600;
-    line-height: 0;
-    text-align: left;
+    color: #000000;
 }
 
-.personal-information span::after {
-    content: " *";
-    color: #FE2525;
+.category-item p {
+    font-size: 16px;
+    font-weight: 300;
+    color: #9F9F9F;
 }
 
-.personal-information input {
-    width: 100%;
-    max-width: 374px;
-    padding: 12px;
-    border: 1px solid #D0D5DD;
-    border-radius: 8px;
-    background: #F5F5F5;
-}
-
-.third-row {
+.item-actions {
     display: flex;
-    gap: 19px;
-    margin-top: 10px;
+    flex-direction: column; 
+    align-items: flex-end; 
 }
 
-.third-row button {
-    width: 100%;
-    padding: 10px 20px;
-    border: 1px solid #4F46E5;
-    border-radius: 8px;
-    background: #F4F2FD;
-    color: #4F46E5;
+.btn-x {
+    width: 15px;
     cursor: pointer;
 }
 
-.third-row button:hover {
-    background: #4F46E5;
-    color: #FFFFFF;
+.btn-edit {
+    width: 15px;
+    cursor: pointer;
 }
 
 footer {

@@ -165,7 +165,7 @@ main.container {
     text-align: center;
 }
 
-.remaining-box, .month-box, .month-budget-box {
+.remaining-box, .month-box {
     background: #FFFFFF;
     width: 100%;
     padding: 20px;
@@ -181,96 +181,156 @@ main.container {
     margin-top: 5px;
 }
 
-.month-budget-box {
+.spending-form {
+    width: 100%;
+    max-width: 768px;
+    background: #FFFFFF;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    margin-top: 20px;
+}
+
+.spending-form form {
     display: flex;
+    gap: 10px;
     justify-content: center;
     align-items: center;
-    gap: 15px;
 }
 
-.month-budget-box input, .month-box input {
-    padding: 8px 12px;
+.spending-form input {
+    width: 174px;
+    height: 42px;
     border: 1px solid #DEE2E6;
     border-radius: 6px;
+    outline: none;
+    font-size: 16px;
+    font-weight: 400;
+    background: #FFFFFF;
+    color: #9CA3AF;
 }
 
-.month-budget-box button {
-    padding: 8px 20px;
-    background: #4F46E5;
+.spending-form select {
+    width: 173px;
+    height: 42px;
+    background: #EFEFEF;
+    border: 1px solid #DEE2E6;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 400;
+    color: #212529;
+}
+
+.btn-add-spending {
+    width: 150px;
+    height: 42px;
+    background: #6366F1; 
     color: #FFFFFF;
     border: none;
     border-radius: 6px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
     cursor: pointer;
 }
 
-.month-budget-box button:hover {
-    background: #3730a3;
+.btn-add-spending:hover {
+    background: #3730A3;
 }
 
-.personal-information {
+.category-history {
     width: 100%;
     max-width: 768px;
-    margin: 0 auto;
+    background: #FFFFFF;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.history-header-wrapper {
     display: flex;
-    flex-direction: column;
-    gap: 20px;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
-.first-row, .second-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    width: 100%;
-    text-align: left;
+.category-history h3 {
+    margin: 0;
+    font-size: 17.72px;
+    color: #000000;
 }
 
-.input-group {
+.history-form {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    justify-content: flex-end; 
+    gap: 12px;
+    margin-bottom: 0;
 }
 
-.personal-information span {
-    display: block;
+.sort-by-price {
+    width: 171.45px;
+    height: 38px;
+    border: 1px solid #DEE2E6;
+    border-radius: 8px;
+    outline: none;
+    color: #111827;
     font-size: 14px;
-    font-weight: 600;
-    line-height: 0;
-    text-align: left;
+    font-weight: 400;
+    line-height: 14px;
 }
 
-.personal-information span::after {
-    content: " *";
-    color: #FE2525;
-}
-
-.personal-information input {
-    width: 100%;
-    max-width: 374px;
-    padding: 12px;
-    border: 1px solid #D0D5DD;
-    border-radius: 8px;
-    background: #F5F5F5;
-}
-
-.third-row {
+.search-box {
     display: flex;
-    gap: 19px;
-    margin-top: 10px;
+    align-items: center;
 }
 
-.third-row button {
-    width: 100%;
-    padding: 10px 20px;
-    border: 1px solid #4F46E5;
+.search-box input {
+    width: 159px;
+    height: 38px;
+    border: 1px solid #DEE2E6;
     border-radius: 8px;
-    background: #F4F2FD;
-    color: #4F46E5;
+    outline: none;
+    font-size: 14px;
+    font-weight: 400;
+    color: #9CA3AF;
+}
+
+.btn-search {
+    width: 38px;
+    height: 38px;
+    background: #1D4ED8; 
+    color: #FFFFFF;
+    border: 1px solid #DEE2E6;
+    border-radius: 8px;
     cursor: pointer;
 }
 
-.third-row button:hover {
-    background: #4F46E5;
-    color: #FFFFFF;
+table {
+    width: 100%;
+}
+
+table th {
+    text-align: left;
+    padding: 12px;
+    color: #374151;
+    font-size: 14px; 
+    font-weight: 400;
+    line-height: 20px;
+}
+
+table td {
+    text-align: left;
+    padding: 16px 12px;
+    color: #374151;
+    font-size: 14px; 
+    font-weight: 400;
+    line-height: 20px;
+}
+
+table td img {
+    width: 20px;
+    cursor: pointer;
 }
 
 footer {
