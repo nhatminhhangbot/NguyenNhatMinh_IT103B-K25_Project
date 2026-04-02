@@ -16,11 +16,11 @@
                 <p>📒 Tài Chính Cá Nhân K24_Rikkei</p>
             </div>
             <div class="user-action dropdown">
-                <p class="dropdown-toggle">
+                <button type="button" class="dropdown-toggle" onclick="toggleDropdown()">
                     Tài khoản <i class="fas fa-chevron-down"></i>
-                </p>
+                </button>
                 <div class="dropdown-content">
-                    <a href="#">Đăng xuất</a>
+                    <button type="button" onclick="logOut()" class="btn-logout">Đăng xuất</button>
                 </div>
             </div>
         </nav>
@@ -49,10 +49,11 @@
                     <p>0 VND</p>
                 </div>
                 <div class="month-box">
-                    <p>📅 Chọn tháng: <input type="month" value="2025-09"></p>
+                    <label>📅 Chọn tháng:</label>
+                    <input type="month" value="2025-09">
                 </div>
                 <div class="month-budget-box">
-                    <p>💰 Ngân sách tháng:</p>
+                    <label>💰 Ngân sách tháng:</label>
                     <input type="text" placeholder="VD: 5000000">
                     <button>Lưu</button>
                 </div>
@@ -89,5 +90,6 @@
     <footer>
         <p>&copy; 2025 Quản Lý Tài Chính Cá Nhân. by Nguyễn Nhật Minh!</p>
     </footer>
+    <script src="./js/index.js"></script>
 </body>
 </html>

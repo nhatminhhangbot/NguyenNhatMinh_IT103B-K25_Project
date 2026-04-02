@@ -18,9 +18,52 @@ body {
 }
 
 header {
+    position: sticky;
     background-color: #4338CA; 
     color: #FFFFFF;
     padding: 15px 0;
+    z-index: 100;
+}
+
+#toast-container {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    z-index: 999999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none;
+}
+
+.toast {
+    pointer-events: auto;
+    background-color: #374151;
+    color: #FFFFFF;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+    width: 250px;
+    gap: 15px;
+    animation: slideIn 0.3s ease-out; 
+}
+
+.toast.warning .toast-icon {
+    color: #F59E0B; 
+    font-size: 20px;
+    margin-top: 2px;
+}
+
+.toast-title {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+.toast-message {
+    font-size: 13px;
+    color: #D1D5DB; 
+    line-height: 1.4;
 }
 
 .nav-header {
@@ -65,10 +108,11 @@ header {
 .layout-container {
     display: flex; 
     align-items: flex-start; 
-    gap: 30px; 
-    max-width: 1200px; 
-    margin: 20px auto;
+    width: 100%;
+    max-width: 100%; 
+    margin: 20px 0;
     padding: 0 15px;
+    position: relative;
 }
 
 .sidebar {
@@ -77,6 +121,8 @@ header {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    position: sticky;
+    z-index: 10;
 }
 
 .menu-item {
@@ -91,9 +137,24 @@ header {
     line-height: 20px;
     text-decoration: none;
     display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 15px;
+    gap: 12px;
+}
+
+.menu-item i, 
+.menu-item img {
+    width: 20px;       
+    display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    flex-shrink: 0;    
+}
+
+.menu-item img {
+    height: 18px;     
+    object-fit: contain;
 }
 
 .menu-item:hover {
@@ -113,13 +174,22 @@ main.container {
     flex-direction: column; 
     align-items: center;    
     width: 100%;
+    margin-left: -30px;
+}
+
+.banner, 
+.config-box, 
+.spending-form, 
+.category-history {
+    width: 100%;
+    max-width: 768px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .banner {
     background-color: #4f46e5;
     color: white;
-    width: 100%;
-    max-width: 768px;
     padding: 30px;
     border-radius: 12px;
     margin-top: 30px;
@@ -154,8 +224,6 @@ main.container {
 }
 
 .config-box {
-    width: 100%;
-    max-width: 768px;
     gap: 20px;
     margin-bottom: 30px;
     display: flex;
@@ -173,6 +241,24 @@ main.container {
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
+.month-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12.25px;
+}
+
+.month-box input {
+    width: 178px;
+    height: 42px;
+    padding: 8px 12px;
+    border: 1px solid #DEE2E6;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #212529;
+}
+
 .remaining-box p:last-child {
     font-size: 24px;
     font-weight: 400;
@@ -182,8 +268,6 @@ main.container {
 }
 
 .spending-form {
-    width: 100%;
-    max-width: 768px;
     background: #FFFFFF;
     padding: 20px;
     border-radius: 12px;
@@ -201,6 +285,7 @@ main.container {
 .spending-form input {
     width: 174px;
     height: 42px;
+    padding: 10px;
     border: 1px solid #DEE2E6;
     border-radius: 6px;
     outline: none;
@@ -240,8 +325,6 @@ main.container {
 }
 
 .category-history {
-    width: 100%;
-    max-width: 768px;
     background: #FFFFFF;
     padding: 25px;
     border-radius: 12px;
@@ -271,6 +354,7 @@ main.container {
 .sort-by-price {
     width: 171.45px;
     height: 38px;
+    padding: 10px;
     border: 1px solid #DEE2E6;
     border-radius: 8px;
     outline: none;
@@ -288,6 +372,7 @@ main.container {
 .search-box input {
     width: 159px;
     height: 38px;
+    padding: 10px;
     border: 1px solid #DEE2E6;
     border-radius: 8px;
     outline: none;
@@ -331,6 +416,50 @@ table td {
 table td img {
     width: 20px;
     cursor: pointer;
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: flex-end; 
+    margin-top: 20px;
+    padding-bottom: 10px;
+}
+
+.pagination {
+    display: flex;
+    gap: 8px; 
+    align-items: center;
+}
+
+.page-number, .page-nav {
+    min-width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #FFFFFF;
+    border: 1px solid #D8DAE5; 
+    border-radius: 6px;
+    color: #051B44;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.page-number:hover, .page-nav:hover {
+    background-color: #F3F4F6;
+    border-color: #9CA3AF;
+}
+
+.page-number.active {
+    background-color: #4338CA; 
+    color: #FFFFFF;
+    border-color: #4338CA;
+}
+
+.page-nav i {
+    font-size: 12px;
+    color: #6B7280;
 }
 
 footer {

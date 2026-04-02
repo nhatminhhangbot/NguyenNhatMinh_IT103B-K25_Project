@@ -9,10 +9,18 @@
 <body>
     <div class="login-box">
         <h3>🔐 Sign In</h3>
-        <input type="email" placeholder="email ..."> <br>
-        <input type="password" placeholder="Password ..."> <br>
-        <button type="submit">Sign In</button>
-        <p>You don't have account? <a href="../pages/register.html">Sign Up Now</a></p>
+        <p class="msg-success">Sign In Successfully</p>
+        <div class="input-group">
+            <input type="email" class="login-email" placeholder="email here ...">
+            <p class="error-message error-email">Please enter your email ...</p>
+        </div>
+        <div class="input-group">
+            <input type="password" class="login-password" placeholder="Password here ...">
+            <p class="error-message error-password">Please enter your password ...</p>
+        </div>
+        <button type="button" onclick="signIn()" class="btn-login">Sign In</button>
+        <p class="note">You don't have account? <a href="../pages/register.html">Sign Up Now</a></p>
     </div>
+    <script src="../js/login.js"></script>
 </body>
 </html>

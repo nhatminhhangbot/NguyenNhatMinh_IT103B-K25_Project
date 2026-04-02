@@ -9,11 +9,22 @@
 <body>
     <div class="signup-box">
         <h3>Sign Up</h3>
-        <input type="email" placeholder="email here ..."> <br>
-        <input type="password" placeholder="Password here ..."> <br>
-        <input type="password" placeholder="Confirm password here ..."> <br>
-        <button type="submit">Sign Up</button>
-        <p>You have account? <a href="../pages/login.html">Sign In</a></p>
+        <p class="msg-success">Sign Up Successfully</p>
+        <div class="input-group">
+            <input type="email" class="register-email" placeholder="email here ...">
+            <p class="error-message error-email">Please enter your email ...</p>
+        </div>
+        <div class="input-group">
+            <input type="password" class="register-password" placeholder="Password here ...">
+            <p class="error-message error-password">Please enter your password ...</p>
+        </div>
+        <div class="input-group">
+            <input type="password" class="register-confirm-password" placeholder="Confirm password here ...">
+            <p class="error-message error-confirm-password">Please enter your confirm password ...</p>
+        </div>
+        <button type="button" onclick="signUp()" class="btn-register">Sign Up</button>
+        <p class="note">You have account? <a href="../pages/login.html">Sign In</a></p>
     </div>
+    <script src="../js/register.js"></script>
 </body>
 </html>
