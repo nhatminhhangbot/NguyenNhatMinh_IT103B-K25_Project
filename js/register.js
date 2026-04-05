@@ -10,6 +10,9 @@ function signUp() {
     const email = inputEmail.value.trim();
     const password = inputPassword.value;
     const confirmPassword = inputConfirmPassword.value;
+    inputEmail.classList.remove("input-error");
+    inputPassword.classList.remove("input-error");
+    inputConfirmPassword.classList.remove("input-error");
     errorEmail.classList.remove("show");
     errorPassword.classList.remove("show");
     errorConfirmPassword.classList.remove("show");
@@ -22,33 +25,39 @@ function signUp() {
         errorEmail.innerText = "Please enter your email ...";
         errorEmail.classList.add("show");
         inputEmail.style.borderColor = "#FF0004";
+        inputEmail.classList.add("input-error");
         isValid = false; 
     } else if(email.indexOf("@") === -1 || email.indexOf(".") === -1) {
         errorEmail.innerText = "Email format is invalid!";
         errorEmail.classList.add("show");
         inputEmail.style.borderColor = "#FF0004";
+        inputEmail.classList.add("input-error");
         isValid = false;
     }
     if(password === "") {
         errorPassword.innerText = "Please enter your password ...";
         errorPassword.classList.add("show");
         inputPassword.style.borderColor = "#FF0004";
+        inputPassword.classList.add("input-error");
         isValid = false;
     } else if(password.length < 6) {
         errorPassword.innerText = "Password must be at least 6 characters!";
         errorPassword.classList.add("show");
         inputPassword.style.borderColor = "#FF0004";
+        inputPassword.classList.add("input-error");
         isValid = false;
     }
     if(confirmPassword === "") {
         errorConfirmPassword.innerText = "Please enter your confirm password ...";
         errorConfirmPassword.classList.add("show");
         inputConfirmPassword.style.borderColor = "#FF0004";
+        inputConfirmPassword.classList.add("input-error");
         isValid = false;
     } else if(password !== confirmPassword) {
         errorConfirmPassword.innerText = "Confirm password does not match!";
         errorConfirmPassword.classList.add("show");
         inputConfirmPassword.style.borderColor = "#FF0004";
+        inputConfirmPassword.classList.add("input-error");
         isValid = false;
     }
     if(isValid) {

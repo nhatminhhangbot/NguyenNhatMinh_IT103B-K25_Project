@@ -7,6 +7,8 @@ function signIn() {
     const msgSuccess = document.querySelector(".msg-success");
     const email = inputEmail.value.trim();
     const password = inputPassword.value;
+    inputEmail.classList.remove("input-error");
+    inputPassword.classList.remove("input-error");
     errorEmail.classList.remove("show");
     errorPassword.classList.remove("show");
     msgSuccess.classList.remove("show");
@@ -17,17 +19,20 @@ function signIn() {
         errorEmail.innerText = "Please enter your email ...";
         errorEmail.classList.add("show");
         inputEmail.style.borderColor = "#FF0004";
+        inputEmail.classList.add("input-error");
         isValid = false;
     } else if (email.indexOf("@") === -1 || email.indexOf(".") === -1) {
         errorEmail.innerText = "Incorrect email or password!";
         errorEmail.classList.add("show");
         inputEmail.style.borderColor = "#FF0004";
+        inputEmail.classList.add("input-error");
         isValid = false;
     }
     if(password === "") {
         errorPassword.innerText = "Please enter your password ...";
         errorPassword.classList.add("show");
         inputPassword.style.borderColor = "#FF0004";
+        inputPassword.classList.add("input-error");
         isValid = false;
     }
     if(isValid) {

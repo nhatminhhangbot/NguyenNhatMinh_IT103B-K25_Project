@@ -17,11 +17,11 @@
                 <p>📒 Tài Chính Cá Nhân K24_Rikkei</p>
             </div>
             <div class="user-action dropdown">
-                <p class="dropdown-toggle">
+                <button type="button" class="dropdown-toggle" onclick="toggleDropdown()">
                     Tài khoản <i class="fas fa-chevron-down"></i>
-                </p>
+                </button>
                 <div class="dropdown-content">
-                    <a href="#">Đăng xuất</a>
+                    <button type="button" onclick="logOut()" class="btn-logout">Đăng xuất</button>
                 </div>
             </div>
         </nav>
@@ -57,13 +57,13 @@
                     <h3>💼 Quản lý danh mục (Theo tháng)</h3>
                     <div class="management-form">
                         <form action="">
-                            <input type="text" placeholder="Tên danh mục">
-                            <input type="text" placeholder="Giới hạn (VND)">
-                            <button type="button" class="btn-add">Thêm danh mục</button>
+                            <input type="text" class="category-name" placeholder="Tên danh mục">
+                            <input type="text" class="category-limit" placeholder="Giới hạn (VND)">
+                            <button type="button" onclick="addCategory()" class="btn-add">Thêm danh mục</button>
                         </form>
                     </div>
                     <div class="categories-list">
-                        <div class="first-row-list">
+                        <!-- <div class="first-row-list">
                             <div class="category-item">
                                 <img src="../assets/icons/Frame 5.png" alt="" class="item-icon">
                                 <div class="item-content">
@@ -156,13 +156,36 @@
                                     <img src="../assets/icons/Mode edit.png" alt="" class="btn-edit">
                                 </div>
                             </div>
+                        </div> -->
+                    </div>
+                </div>
+                <div id="editModal" class="modal">
+                    <div class="modal-content">
+                        <h3>Chỉnh sửa danh mục</h3>
+                        <div class="input-group">
+                            <input type="text" id="editCategoryName" placeholder="Tên danh mục mới">
+                            <input type="number" id="editCategoryLimit" placeholder="Giới hạn mới (VND)">
+                        </div>
+                        <div class="modal-actions">
+                            <button type="button" onclick="closeEditModal()" class="btn-modal btn-cancel">Hủy</button>
+                            <button type="button" onclick="editCategory()" class="btn-modal btn-confirm">Lưu thay đổi</button>
                         </div>
                     </div>
                 </div>
+            </div>
         </main>
+    </div>
+    <div id="customAlert" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h3 id="alertTitle">Thông báo</h3>
+            <p id="alertMessage">Nội dung thông báo ở đây...</p>
+            <div id="alertActions" class="modal-actions">
+                </div>
+        </div>
     </div>
     <footer>
         <p>&copy; 2025 Quản Lý Tài Chính Cá Nhân. by Nguyễn Nhật Minh!</p>
     </footer>
+    <script src="../js/category.js"></script>
 </body>
 </html>

@@ -28,11 +28,11 @@
                 <p>📒 Tài Chính Cá Nhân K24_Rikkei</p>
             </div>
             <div class="user-action dropdown">
-                <p class="dropdown-toggle">
+                <button type="button" class="dropdown-toggle" onclick="toggleDropdown()">
                     Tài khoản <i class="fas fa-chevron-down"></i>
-                </p>
+                </button>
                 <div class="dropdown-content">
-                    <a href="#">Đăng xuất</a>
+                    <button type="button" onclick="logOut()" class="btn-logout">Đăng xuất</button>
                 </div>
             </div>
         </nav>
@@ -62,16 +62,16 @@
                 </div>
                 <div class="month-box">
                     <label>📅 Chọn tháng:</label>
-                    <input type="month" value="2025-09">
+                    <input type="month" onchange="changeMonth()" value="2025-09">
                 </div>
                 <div class="spending-form">
                     <form action="">
-                        <input type="text" placeholder="Số tiền">
-                        <select class="input-category">
+                        <input type="text" class="input-amount" placeholder="Số tiền">
+                        <select class="input-category-select">
                             <option value="" disabled selected>Danh mục chi tiêu</option>
                         </select>
-                        <input type="text" placeholder="Ghi chú">
-                        <button class="btn-add-spending">Thêm</button>
+                        <input type="text" class="input-note" placeholder="Ghi chú">
+                        <button onclick="addSpending(event)" class="btn-add-spending">Thêm</button>
                     </form>
                 </div>
                 <div class="category-history">
@@ -99,8 +99,8 @@
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
+                        <tbody id="history-table-body">
+                            <!-- <tr>
                                 <td>1</td>
                                 <td>Tiền đi chơi</td>
                                 <td>2.000 $</td>
@@ -134,11 +134,11 @@
                                 <td>1.500 $</td>
                                 <td>Ăn trưa</td>
                                 <td><img src="../assets/icons/Trash.png" alt=""></td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
-                    <div class="pagination-container">
-                        <div class="pagination">
+                    <!-- <div class="pagination-container">
+                        <div class="pagination" id="pagination-controls">
                             <button class="page-nav"><img src="../assets/icons/arrow left.png" alt=""></button>
                             <button class="page-number">1</button>
                             <button class="page-number">2</button>
@@ -150,11 +150,20 @@
                             <button class="page-nav"><img src="../assets/icons/arrow right.png" alt=""></button>
                         </div>
                     </div>
-                </div>
+                </div> -->
         </main>
+    </div>
+    <div id="customAlert" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h3 id="alertTitle">Thông báo</h3>
+            <p id="alertMessage">Nội dung thông báo ở đây...</p>
+            <div id="alertActions" class="modal-actions">
+                </div>
+        </div>
     </div>
     <footer>
         <p>&copy; 2025 Quản Lý Tài Chính Cá Nhân. by Nguyễn Nhật Minh!</p>
     </footer>
+    <script src="../js/history.js"></script>
 </body>
 </html>

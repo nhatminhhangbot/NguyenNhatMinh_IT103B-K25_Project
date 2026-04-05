@@ -75,6 +75,11 @@ body {
   visibility: visible;
 }
 
+.input-error::placeholder {
+  color: #FF0004;
+  opacity: 1;
+}
+
 .login-box button {
   width: 100%;
   padding: 10px;
