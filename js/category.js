@@ -176,12 +176,13 @@ function editCategory() {
     if(!monthData) {
        return; 
     }
-    let index = monthlyCategories[selectedMonth].findIndex(i => i.id === editingId);
+    let index = monthData.categories.findIndex(i => i.id === editingId);
     if(index !== -1) {
         monthData.categories[index].budget = Number(newLimit);
         localStorage.setItem("monthlyCategories", JSON.stringify(monthlyCategories));
         renderCategories();
         closeEditModal();
+        showAlert("Thành công", "Đã cập nhật thay đổi thành công!");
     }
 }
 function closeEditModal() {
