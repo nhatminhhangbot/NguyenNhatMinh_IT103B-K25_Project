@@ -107,10 +107,10 @@ function addSpending(e) {
         let totalAfterAddCategory = spentInCategory + amount;
         let categoryLimit = Number(currentCategory.budget);
         if(totalAfterAddCategory > categoryLimit) {
-            let catInfo = categories.find(c => c.id === currentCategory.categoryId);
-            let catName = catInfo ? catInfo.name : "Danh mục";
+            let categoryInfo = categories.find(c => c.id === currentCategory.categoryId);
+            let categoryName = categoryInfo ? categoryInfo.name : "Danh mục";
             showToast("Cảnh báo tài chính", 
-                `Danh mục "${catName}" đã vượt quá giới hạn: ${totalAfterAddCategory.toLocaleString()} / ${categoryLimit.toLocaleString()} $`);
+                `Danh mục "${categoryName}" đã vượt quá giới hạn: ${totalAfterAddCategory.toLocaleString()} / ${categoryLimit.toLocaleString()} $`);
         }
         let totalMonthBudget = monthData.reduce((sum, item) => sum + Number(item.budget), 0);
         let totalMonthSpent = transactions
