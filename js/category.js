@@ -82,8 +82,8 @@ function renderCategories() {
         html += `<div class="first-row-list">`;
         for(let j = i; j < i + 3 && j < currentList.length; j++) {
             let item = currentList[j];
-            let originalCat = categories.find(c => c.id === item.categoryId);
-            let displayName = originalCat ? originalCat.name : "N/A";
+            let originalCategory = categories.find(c => c.id === item.categoryId);
+            let displayName = originalCategory ? originalCategory.name : "N/A";
             html += `
                 <div class="category-item">
                     <img src="../assets/icons/Frame 5.png" class="item-icon">
