@@ -49,9 +49,10 @@ function getBudgetByMonth(month) {
 }
 function totalSpentByMonth(month) {
     let totalSpent = 0;
-    for(let i = 0; i < transactions.length; i++) {
-        let t = transactions[i];
-        if(t.month === month) { 
+    let currentTransactions = JSON.parse(localStorage.getItem("transactions")) || [];
+    for(let i = 0; i < currentTransactions.length; i++) {
+        let t = currentTransactions[i];
+        if(t.createdMonth === month) { 
             totalSpent = totalSpent + Number(t.total);
         }
     }
@@ -59,17 +60,17 @@ function totalSpentByMonth(month) {
 }
 function renderFinancialData() {
     let selectedMonth = monthInput.value;
-    let budgetData = getBudgetByMonth(selectedMonth);
-    let spentAmount = totalSpentByMonth(selectedMonth);
-    if(budgetData) {
-        let budget = Number(budgetData.budget);
-        let remaining = budget - spentAmount;
-        budgetInput.value = budget;
-        displayRemaining.innerText = `${remaining.toLocaleString('vi-VN')} VND`;
-    } else {
-        budgetInput.value = "";
-        displayRemaining.innerText = "0 VND";
+    let monthlyCategories = JSON.parse(localStorage.getItem("monthlyCategories")) || [];
+    let monthData = monthlyCategories.find(item => item.month === selectedMonth);
+    let totalBudget = 0;
+    if (monthData && monthData.categories) {
+        totalBudget = monthData.categories.reduce((sum, item) => sum + Number(item.budget), 0);
     }
+    let spentAmount = totalSpentByMonth(selectedMonth);
+    let remaining = totalBudget - spentAmount;
+    budgetInput.value = totalBudget; 
+    budgetInput.readOnly = true; 
+    displayRemaining.innerText = `${remaining.toLocaleString('vi-VN')} VND`;
 }
 function saveBudget() {
     let selectedMonth = monthInput.value;

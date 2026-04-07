@@ -71,7 +71,7 @@
                             <option value="" disabled selected>Danh mục chi tiêu</option>
                         </select>
                         <input type="text" class="input-note" placeholder="Ghi chú">
-                        <button onclick="addSpending(event)" class="btn-add-spending">Thêm</button>
+                        <button type="button" onclick="addSpending(event)" class="btn-add-spending">Thêm</button>
                     </form>
                 </div>
                 <div class="category-history">
@@ -80,6 +80,8 @@
                         <div class="history-form">
                             <select class="sort-by-price">
                                 <option value="">Sắp xếp theo giá</option>
+                                <option value="asc">Tăng dần</option>
+                                <option value="desc">Giảm dần</option>
                             </select>
                             <div class="search-box">
                                 <input type="text" placeholder="tìm nội dung">
@@ -137,9 +139,9 @@
                             </tr> -->
                         </tbody>
                     </table>
-                    <!-- <div class="pagination-container">
+                    <div class="pagination-container">
                         <div class="pagination" id="pagination-controls">
-                            <button class="page-nav"><img src="../assets/icons/arrow left.png" alt=""></button>
+                            <!-- <button class="page-nav"><img src="../assets/icons/arrow left.png" alt=""></button>
                             <button class="page-number">1</button>
                             <button class="page-number">2</button>
                             <button class="page-number active">3</button>
@@ -147,10 +149,10 @@
                             <button class="page-number">5</button>
                             <button class="page-number">6</button>
                             <button class="page-number">7</button>
-                            <button class="page-nav"><img src="../assets/icons/arrow right.png" alt=""></button>
+                            <button class="page-nav"><img src="../assets/icons/arrow right.png" alt=""></button> -->
                         </div>
                     </div>
-                </div> -->
+                </div>
         </main>
     </div>
     <div id="customAlert" class="modal" style="display: none;">

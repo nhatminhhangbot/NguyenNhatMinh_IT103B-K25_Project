@@ -43,37 +43,46 @@ const categoryName = document.querySelector(".category-name");
 const categoryLimit = document.querySelector(".category-limit");
 const categoriesList = document.querySelector(".categories-list");
 const displayRemaining = document.querySelector(".remaining-box p:last-child");
-let monthlyCategories = JSON.parse(localStorage.getItem("monthlyCategories")) || {};
+let categories = JSON.parse(localStorage.getItem("categories")) || [];
+let monthlyCategories = JSON.parse(localStorage.getItem("monthlyCategories")) || [];
 let monthlyBudgets = JSON.parse(localStorage.getItem("monthlyBudgets")) || [];
 let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
 let editingId = null;
 function displayRemainingBalance() {
     let selectedMonth = monthInput.value;
-    let budgetData = monthlyBudgets.find(item => item.month === selectedMonth);
-    let budgetAmount = budgetData ? Number(budgetData.budget) : 0;
+    let monthData = monthlyCategories.find(item => item.month === selectedMonth);
+    let currentCategories = monthData ? monthData.categories : [];
+    let totalBudget = currentCategories.reduce((sum, item) => sum + Number(item.budget), 0);
     let totalSpent = transactions
-        .filter(t => t.month === selectedMonth)
+        .filter(t => t.createdMonth === selectedMonth) 
         .reduce((sum, t) => sum + Number(t.total), 0);
-    let remaining = budgetAmount - totalSpent;
+    let remaining = totalBudget - totalSpent;
     if(displayRemaining) {
         displayRemaining.innerText = `${remaining.toLocaleString('vi-VN')} VND`;
+    }
+    if(monthData) {
+        monthData.totalBudget = totalBudget;
+        localStorage.setItem("monthlyCategories", JSON.stringify(monthlyCategories));
     }
 }
 function renderCategories() {
     let selectedMonth = monthInput.value;
-    let currentCategories = monthlyCategories[selectedMonth] || [];
+    let monthData = monthlyCategories.find(item => item.month === selectedMonth);
+    let currentList = monthData ? monthData.categories : [];
     let html = "";
     displayRemainingBalance();
-    for(let i = 0; i < currentCategories.length; i += 3) {
+    for(let i = 0; i < currentList.length; i += 3) {
         html += `<div class="first-row-list">`;
-        for(let j = i; j < i + 3 && j < currentCategories.length; j++) {
-            let item = currentCategories[j];
+        for(let j = i; j < i + 3 && j < currentList.length; j++) {
+            let item = currentList[j];
+            let originalCat = categories.find(c => c.id === item.categoryId);
+            let displayName = originalCat ? originalCat.name : "N/A";
             html += `
                 <div class="category-item">
                     <img src="../assets/icons/Frame 5.png" class="item-icon">
                     <div class="item-content">
-                        <span>${item.name}</span>
-                        <p>${Number(item.limit).toLocaleString('vi-VN')} $</p>
+                        <span>${displayName}</span>
+                        <p>${Number(item.budget).toLocaleString('vi-VN')} $</p>
                     </div>
                     <div class="item-actions">
                         <img src="../assets/icons/Close.png" class="btn-x" onclick="deleteCategory(${item.id})">
@@ -93,17 +102,39 @@ function addCategory() {
         showAlert("Thông báo", "Vui lòng nhập đầy đủ tên và số tiền!");
         return;
     }
-    if(!monthlyCategories[selectedMonth]) {
-        monthlyCategories[selectedMonth] = [];
+    let categoryExist = categories.find(c => c.name.toLowerCase() === name.toLowerCase());
+    let categoryId;
+    if(!categoryExist) {
+        categoryId = categories.length > 0 ? categories[categories.length - 1].id + 1 : 1;
+        categories.push({
+            id: categoryId,
+            name: name,
+            imageUrl: "đường dẫn ảnh",
+            status: true
+        });
+        localStorage.setItem("categories", JSON.stringify(categories));
+    } else {
+        categoryId = categoryExist.id;
     }
-    let currentList = monthlyCategories[selectedMonth];
-    let newId = currentList.length > 0 ? currentList[currentList.length - 1].id + 1 : 1;
-    let newCategory = {
-        id: newId,
-        name: name,
-        limit: Number(limit),
+    let monthData = monthlyCategories.find(m => m.month === selectedMonth);
+    let budgetInfo = monthlyBudgets.find(b => b.month === selectedMonth);
+    let totalBudget = budgetInfo ? Number(budgetInfo.budget) : 0;
+    if(!monthData) {
+        monthData = {
+            id: monthlyCategories.length > 0 ? monthlyCategories[monthlyCategories.length - 1].id + 1 : 1,
+            month: selectedMonth,
+            userId: currentUser.id || 1,
+            totalBudget: totalBudget,
+            categories: []
+        };
+        monthlyCategories.push(monthData);
     }
-    monthlyCategories[selectedMonth].push(newCategory);
+    let newSubId = monthData.categories.length > 0 ? monthData.categories[monthData.categories.length - 1].id + 1 : 1;
+    monthData.categories.push({
+        id: newSubId,
+        categoryId: categoryId,
+        budget: limit
+    });
     localStorage.setItem("monthlyCategories", JSON.stringify(monthlyCategories));
     renderCategories();
     categoryName.value = "";
@@ -113,11 +144,16 @@ monthInput.addEventListener("change", renderCategories);
 renderCategories();
 function openEditModal(id) {
     let selectedMonth = monthInput.value;
-    let item = monthlyCategories[selectedMonth].find(i => i.id === id);
+    let monthData = monthlyCategories.find(m => m.month === selectedMonth);
+    if(!monthData) {
+       return; 
+    }
+    let item = monthData.categories.find(i => i.id === id); 
     if(item) {
         editingId = id;
-        document.getElementById("editCategoryName").value = item.name;
-        document.getElementById("editCategoryLimit").value = item.limit;
+        let originalCat = categories.find(c => c.id === item.categoryId);
+        document.getElementById("editCategoryName").value = originalCat ? originalCat.name : "";
+        document.getElementById("editCategoryLimit").value = item.budget;
         document.getElementById("editModal").style.display = "flex";
     }
 }
@@ -129,10 +165,13 @@ function editCategory() {
         showAlert("Thông báo", "Vui lòng nhập đầy đủ tên và số tiền!");
         return;
     }
+    let monthData = monthlyCategories.find(m => m.month === selectedMonth);
+    if(!monthData) {
+       return; 
+    }
     let index = monthlyCategories[selectedMonth].findIndex(i => i.id === editingId);
     if(index !== -1) {
-        monthlyCategories[selectedMonth][index].name = newName;
-        monthlyCategories[selectedMonth][index].limit = Number(newLimit);
+        monthData.categories[index].budget = Number(newLimit);
         localStorage.setItem("monthlyCategories", JSON.stringify(monthlyCategories));
         renderCategories();
         closeEditModal();
@@ -145,11 +184,11 @@ function closeEditModal() {
 function deleteCategory(id) {
     let selectedMonth = monthInput.value;
     showAlert("Xác nhận", "Bạn có chắc muốn xóa danh mục này?", "confirm", () => {
-        monthlyCategories[selectedMonth] = monthlyCategories[selectedMonth].filter(item => item.id !== id);
-        monthlyCategories[selectedMonth].forEach((item, index) => {
-            item.id = index + 1;
-        });
-        localStorage.setItem("monthlyCategories", JSON.stringify(monthlyCategories));
-        renderCategories();
+        let monthData = monthlyCategories.find(m => m.month === selectedMonth);
+        if(monthData) {
+            monthData.categories = monthData.categories.filter(item => item.id !== id);
+            localStorage.setItem("monthlyCategories", JSON.stringify(monthlyCategories));
+            renderCategories();
+        }
     });
 }
