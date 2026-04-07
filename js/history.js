@@ -224,9 +224,7 @@ function deleteTransaction(id) {
         localStorage.setItem("transactions", JSON.stringify(transactions));
         renderHistory();
         renderStatistics();
-        setTimeout(() => {
-            showAlert("Thành công", "Đã xóa giao dịch thành công!", "info");
-        });
+        showAlert("Thành công", "Đã xóa giao dịch thành công!", "info");
     });
 }
 function renderStatistics() {
