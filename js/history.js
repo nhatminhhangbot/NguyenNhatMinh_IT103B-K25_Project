@@ -106,7 +106,6 @@ function addSpending(e) {
             .reduce((sum, t) => sum + Number(t.total), 0);
         let totalAfterAddCategory = spentInCategory + amount;
         let categoryLimit = Number(currentCategory.budget);
-
         if(totalAfterAddCategory > categoryLimit) {
             let catInfo = categories.find(c => c.id === currentCategory.categoryId);
             let catName = catInfo ? catInfo.name : "Danh mục";
