@@ -30,7 +30,9 @@ function showAlert(title, message, type = 'info', confirmCallback = null) {
             <button id="modalConfirmBtn" class="btn-modal ${title === 'Cảnh báo' ? 'btn-danger' : 'btn-confirm'}">Xác nhận</button>
         `;
         document.getElementById("modalConfirmBtn").onclick = () => {
-            if (confirmCallback) confirmCallback();
+            if(confirmCallback) {
+                confirmCallback();
+            }
             closeAlert();
         };
     } else {
@@ -71,6 +73,11 @@ function renderFinancialData() {
     budgetInput.value = totalBudget; 
     budgetInput.readOnly = true; 
     displayRemaining.innerText = `${remaining.toLocaleString('vi-VN')} VND`;
+    if(remaining < 0) {
+        displayRemaining.style.color = "#EF4444";
+    } else {
+        displayRemaining.style.color = "#22C55E";
+    }
 }
 function saveBudget() {
     let selectedMonth = monthInput.value;

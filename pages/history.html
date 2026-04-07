@@ -12,7 +12,7 @@
 </head>
 <body>
     <div id="toast-container">
-        <div class="toast warning">
+        <!-- <div class="toast warning">
             <div class="toast-icon">
                 <i class="fa-solid fa-triangle-exclamation"></i>
             </div>
@@ -20,7 +20,7 @@
                 <p class="toast-title">Cảnh báo tài chính</p>
                 <p class="toast-message">Danh mục "Tiền ăn" đã vượt quá giới hạn: 1.050 / 1.000 $</p>
             </div>
-        </div>
+        </div> -->
     </div>
     <header>
         <nav class="container nav-header">
@@ -152,6 +152,31 @@
                             <button class="page-nav"><img src="../assets/icons/arrow right.png" alt=""></button> -->
                         </div>
                     </div>
+                </div>
+                <div class="category-history" style="margin-top: 30px;">
+                    <div class="history-header-wrapper">
+                        <h3>📊 Thống kê chi tiết theo tháng</h3>
+                        <div class="history-form">
+                            <select id="filter-status" class="sort-by-price" onchange="renderStatistics()">
+                                <option value="all">Tất cả trạng thái</option>
+                                <option value="success">Đạt (Dư tiền)</option>
+                                <option value="fail">Không đạt (Vượt chi)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tháng</th>
+                                <th>Tổng ngân sách</th>
+                                <th>Tổng đã chi</th>
+                                <th>Số còn lại</th>
+                                <th>Trạng thái</th>
+                            </tr>
+                        </thead>
+                        <tbody id="statistics-table-body">
+                        </tbody>
+                    </table>
                 </div>
         </main>
     </div>

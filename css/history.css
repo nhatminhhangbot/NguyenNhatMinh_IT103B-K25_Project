@@ -6,7 +6,7 @@
 }
 
 body {
-    background-color: #f4f7f6; 
+    background-color: #f4f7f6;
     color: #374151;
     line-height: 20px;
 }
@@ -19,7 +19,7 @@ body {
 
 header {
     position: sticky;
-    background-color: #4338CA; 
+    background-color: #4338CA;
     color: #FFFFFF;
     padding: 15px 0;
     z-index: 100;
@@ -45,11 +45,11 @@ header {
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
     width: 250px;
     gap: 15px;
-    animation: slideIn 0.3s ease-out; 
+    animation: slideIn 0.3s ease-out;
 }
 
 .toast.warning .toast-icon {
-    color: #F59E0B; 
+    color: #F59E0B;
     font-size: 20px;
     margin-top: 2px;
 }
@@ -62,7 +62,7 @@ header {
 
 .toast-message {
     font-size: 13px;
-    color: #D1D5DB; 
+    color: #D1D5DB;
     line-height: 1.4;
 }
 
@@ -79,25 +79,25 @@ header {
 }
 
 .dropdown {
-    position: relative; 
+    position: relative;
     cursor: pointer;
 }
 
 .dropdown-toggle {
-    background: none;        
-    border: none;            
-    color: #FFFFFF;            
-    font-size: 14px;  
+    background: none;
+    border: none;
+    color: #FFFFFF;
+    font-size: 14px;
     font-weight: 400;
     line-height: 20px;
-    cursor: pointer;         
-    display: flex;          
-    align-items: center;           
+    cursor: pointer;
+    display: flex;
+    align-items: center;
 }
 
 .dropdown-toggle i {
-    margin-left: 8px; 
-    font-size: 12px;  
+    margin-left: 8px;
+    font-size: 12px;
     vertical-align: middle;
 }
 
@@ -118,21 +118,21 @@ header {
 }
 
 .btn-logout {
-    background: none;      
-    border: none;          
-    color: #4F46E5;        
+    background: none;
+    border: none;
+    color: #4F46E5;
     font-size: 14px;
-    cursor: pointer;       
-    padding: 0;            
-    width: 100%;           
+    cursor: pointer;
+    padding: 0;
+    width: 100%;
     text-align: left;
 }
 
 .layout-container {
-    display: flex; 
-    align-items: flex-start; 
+    display: flex;
+    align-items: flex-start;
     width: 100%;
-    max-width: 100%; 
+    max-width: 100%;
     margin: 20px 0;
     padding: 0 15px;
     position: relative;
@@ -166,17 +166,17 @@ header {
     gap: 12px;
 }
 
-.menu-item i, 
+.menu-item i,
 .menu-item img {
-    width: 20px;       
+    width: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-shrink: 0;    
+    flex-shrink: 0;
 }
 
 .menu-item img {
-    height: 18px;     
+    height: 18px;
     object-fit: contain;
 }
 
@@ -192,17 +192,17 @@ header {
 }
 
 main.container {
-    flex: 1; 
+    flex: 1;
     display: flex;
-    flex-direction: column; 
-    align-items: center;    
+    flex-direction: column;
+    align-items: center;
     width: 100%;
     margin-left: -30px;
 }
 
-.banner, 
-.config-box, 
-.spending-form, 
+.banner,
+.config-box,
+.spending-form,
 .category-history {
     width: 100%;
     max-width: 768px;
@@ -217,7 +217,7 @@ main.container {
     border-radius: 12px;
     margin-top: 30px;
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -256,7 +256,8 @@ main.container {
     text-align: center;
 }
 
-.remaining-box, .month-box {
+.remaining-box,
+.month-box {
     background: #FFFFFF;
     width: 100%;
     padding: 20px;
@@ -333,7 +334,7 @@ main.container {
 .btn-add-spending {
     width: 150px;
     height: 42px;
-    background: #6366F1; 
+    background: #6366F1;
     color: #FFFFFF;
     border: none;
     border-radius: 6px;
@@ -369,7 +370,7 @@ main.container {
 
 .history-form {
     display: flex;
-    justify-content: flex-end; 
+    justify-content: flex-end;
     gap: 12px;
     margin-bottom: 0;
 }
@@ -407,7 +408,7 @@ main.container {
 .btn-search {
     width: 38px;
     height: 38px;
-    background: #1D4ED8; 
+    background: #1D4ED8;
     color: #FFFFFF;
     border: 1px solid #DEE2E6;
     border-radius: 8px;
@@ -422,7 +423,7 @@ table th {
     text-align: left;
     padding: 12px;
     color: #374151;
-    font-size: 14px; 
+    font-size: 14px;
     font-weight: 400;
     line-height: 20px;
 }
@@ -431,7 +432,7 @@ table td {
     text-align: left;
     padding: 16px 12px;
     color: #374151;
-    font-size: 14px; 
+    font-size: 14px;
     font-weight: 400;
     line-height: 20px;
 }
@@ -443,25 +444,26 @@ table td img {
 
 .pagination-container {
     display: flex;
-    justify-content: flex-end; 
+    justify-content: flex-end;
     margin-top: 20px;
     padding-bottom: 10px;
 }
 
 .pagination {
     display: flex;
-    gap: 8px; 
+    gap: 8px;
     align-items: center;
 }
 
-.page-number, .page-nav {
+.page-number,
+.page-nav {
     width: 30px;
     height: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #FFFFFF;
-    border: 1px solid #D8DAE5; 
+    border: 1px solid #D8DAE5;
     border-radius: 6px;
     color: #051B44;
     font-size: 14px;
@@ -470,7 +472,8 @@ table td img {
     padding: 0;
 }
 
-.page-number:hover, .page-nav:hover {
+.page-number:hover,
+.page-nav:hover {
     background-color: #F3F4F6;
     border-color: #9CA3AF;
 }
@@ -482,7 +485,7 @@ table td img {
 }
 
 .page-number.active {
-    background-color: #4338CA; 
+    background-color: #4338CA;
     color: #FFFFFF;
     border-color: #4338CA;
 }
@@ -490,6 +493,33 @@ table td img {
 .page-nav:disabled {
     cursor: default;
     opacity: 0.3;
+}
+
+.text-success {
+    color: #22C55E;
+}
+
+.text-danger {
+    color: #EF4444;
+}
+
+.status-badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: white;
+}
+
+.bg-success {
+    background-color: #22C55E;
+}
+
+.bg-danger {
+    background-color: #EF4444;
+}
+
+#statistics-table-body tr:hover {
+    background-color: #f9fafb;
 }
 
 .modal {

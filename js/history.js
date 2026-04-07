@@ -24,7 +24,9 @@ function showAlert(title, message, type = 'info', confirmCallback = null) {
             <button id="modalConfirmBtn" class="btn-modal ${title === 'Cảnh báo' ? 'btn-danger' : 'btn-confirm'}">Xác nhận</button>
         `;
         document.getElementById("modalConfirmBtn").onclick = () => {
-            if (confirmCallback) confirmCallback();
+            if(confirmCallback) {
+                confirmCallback();
+            }
             closeAlert();
         };
     } else {
@@ -37,6 +39,25 @@ function logOut() {
         localStorage.removeItem("currentUser");
         window.location.href = "./pages/login.html";
     });
+}
+function showToast(title, message) {
+    const container = document.getElementById("toast-container");
+    const toast = document.createElement("div");
+    toast.className = "toast warning"; 
+    toast.innerHTML = `
+        <div class="toast-icon">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <div class="toast-content">
+            <p class="toast-title">${title}</p>
+            <p class="toast-message">${message}</p>
+        </div>
+    `;
+    container.appendChild(toast);
+    setTimeout(() => {
+        toast.style.animation = "slideIn 0.3s ease-out reverse";
+        setTimeout(() => toast.remove(), 300);
+    }, 5000);
 }
 let currentPage = 1;
 const rowsPerPage = 5;
@@ -78,6 +99,30 @@ function addSpending(e) {
     if(categorySelect.value === "") {
         showAlert("Thông báo", "Vui lòng chọn danh mục chi tiêu!");
         return;
+    }
+    if(currentCategory) {
+        let spentInCategory = transactions
+            .filter(t => t.createdMonth === selectedMonth && Number(t.monthlyCategoryId) === monthlyCategoryId)
+            .reduce((sum, t) => sum + Number(t.total), 0);
+        let totalAfterAddCategory = spentInCategory + amount;
+        let categoryLimit = Number(currentCategory.budget);
+
+        if(totalAfterAddCategory > categoryLimit) {
+            let catInfo = categories.find(c => c.id === currentCategory.categoryId);
+            let catName = catInfo ? catInfo.name : "Danh mục";
+            showToast("Cảnh báo tài chính", 
+                `Danh mục "${catName}" đã vượt quá giới hạn: ${totalAfterAddCategory.toLocaleString()} / ${categoryLimit.toLocaleString()} $`);
+        }
+        let totalMonthBudget = monthData.reduce((sum, item) => sum + Number(item.budget), 0);
+        let totalMonthSpent = transactions
+            .filter(t => t.createdMonth === selectedMonth && t.userId === currentUser.id)
+            .reduce((sum, t) => sum + Number(t.total), 0);
+        
+        let totalAfterAddMonth = totalMonthSpent + amount;
+        if(totalAfterAddMonth > totalMonthBudget) {
+            showToast("Cảnh báo ngân sách", 
+                `Tổng chi tháng này đã vượt ngân sách: ${totalAfterAddMonth.toLocaleString()} / ${totalMonthBudget.toLocaleString()} $`);
+        }
     }
     let newId = transactions.length > 0 ? transactions[transactions.length - 1].id + 1 : 1;
     let newTransaction = {
@@ -137,6 +182,11 @@ function renderHistory() {
     let totalSpent = filtered.reduce((sum, t) => sum + Number(t.total), 0);
     let balance = budgetLimit - totalSpent;
     displayRemaining.innerText = balance.toLocaleString('vi-VN') + " VND";
+    if(balance < 0) {
+        displayRemaining.style.color = "#EF4444";
+    } else {
+        displayRemaining.style.color = "#22C55E";
+    }
     renderPagination(totalPages);
 }
 function renderPagination(totalPages) {
@@ -173,7 +223,58 @@ function deleteTransaction(id) {
         transactions = transactions.filter(t => t.id !== id);
         localStorage.setItem("transactions", JSON.stringify(transactions));
         renderHistory();
+        renderStatistics();
+        setTimeout(() => {
+            showAlert("Thành công", "Đã xóa giao dịch thành công!", "info");
+        });
     });
+}
+function renderStatistics() {
+    const statsTableBody = document.querySelector("#statistics-table-body");
+    const filterStatus = document.getElementById("filter-status").value;
+    let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
+    let monthlyCategories = JSON.parse(localStorage.getItem("monthlyCategories")) || [];
+    let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    if(!currentUser) {
+        return;
+    } 
+    let months = monthlyCategories.map(item => item.month);
+    months = [...new Set(months)].sort().reverse();
+    let html = "";
+    months.forEach(month => {
+        let monthConfig = monthlyCategories.find(item => item.month === month);
+        let totalBudget = monthConfig 
+            ? monthConfig.categories.reduce((sum, cat) => sum + Number(cat.budget), 0) 
+            : 0;
+        let totalSpent = transactions
+            .filter(t => t.createdMonth === month && t.userId === currentUser.id)
+            .reduce((sum, t) => sum + Number(t.total), 0);
+        let remaining = totalBudget - totalSpent;
+        let statusText = remaining >= 0 ? "Đạt" : "Không đạt";
+        let statusClass = remaining >= 0 ? "text-success" : "text-danger";
+        if(filterStatus === "success" && remaining < 0) {
+            return;
+        } 
+        if(filterStatus === "fail" && remaining >= 0) {
+            return;
+        }
+        html += `
+            <tr>
+                <td><strong>${month}</strong></td>
+                <td>${totalBudget.toLocaleString('vi-VN')} $</td>
+                <td>${totalSpent.toLocaleString('vi-VN')} $</td>
+                <td style="color: ${remaining >= 0 ? '#22C55E' : '#EF4444'}; font-weight: bold;">
+                    ${remaining.toLocaleString('vi-VN')} $
+                </td>
+                <td>
+                    <span class="status-badge ${remaining >= 0 ? 'bg-success' : 'bg-danger'}">
+                        ${statusText}
+                    </span>
+                </td>
+            </tr>
+        `;
+    });
+    statsTableBody.innerHTML = html || '<tr><td colspan="5" style="text-align:center">Không có dữ liệu thống kê</td></tr>';
 }
 document.querySelector(".search-box input").oninput = () => { 
     currentPage = 1; 
@@ -187,3 +288,4 @@ function changeMonth() {
 }
 renderCategories();
 renderHistory();
+renderStatistics();

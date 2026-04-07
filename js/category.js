@@ -24,7 +24,9 @@ function showAlert(title, message, type = 'info', confirmCallback = null) {
             <button id="modalConfirmBtn" class="btn-modal ${title === 'Cảnh báo' ? 'btn-danger' : 'btn-confirm'}">Xác nhận</button>
         `;
         document.getElementById("modalConfirmBtn").onclick = () => {
-            if (confirmCallback) confirmCallback();
+            if(confirmCallback) {
+                confirmCallback();
+            }
             closeAlert();
         };
     } else {
@@ -59,6 +61,11 @@ function displayRemainingBalance() {
     let remaining = totalBudget - totalSpent;
     if(displayRemaining) {
         displayRemaining.innerText = `${remaining.toLocaleString('vi-VN')} VND`;
+        if(remaining < 0) {
+            displayRemaining.style.color = "#EF4444";
+        } else {
+            displayRemaining.style.color = "#22C55E";
+        }
     }
     if(monthData) {
         monthData.totalBudget = totalBudget;
@@ -151,8 +158,8 @@ function openEditModal(id) {
     let item = monthData.categories.find(i => i.id === id); 
     if(item) {
         editingId = id;
-        let originalCat = categories.find(c => c.id === item.categoryId);
-        document.getElementById("editCategoryName").value = originalCat ? originalCat.name : "";
+        let originalCategory = categories.find(c => c.id === item.categoryId);
+        document.getElementById("editCategoryName").value = originalCategory ? originalCategory.name : "";
         document.getElementById("editCategoryLimit").value = item.budget;
         document.getElementById("editModal").style.display = "flex";
     }
