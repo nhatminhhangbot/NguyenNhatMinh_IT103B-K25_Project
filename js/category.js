@@ -196,6 +196,9 @@ function deleteCategory(id) {
             monthData.categories = monthData.categories.filter(item => item.id !== id);
             localStorage.setItem("monthlyCategories", JSON.stringify(monthlyCategories));
             renderCategories();
+            setTimeout(() => {
+                showAlert("Thành công", "Đã xóa giao dịch thành công!", "info");
+            });
         }
     });
 }

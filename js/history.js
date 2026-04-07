@@ -219,7 +219,7 @@ function changePage(page) {
     renderHistory();
 }
 function deleteTransaction(id) {
-    showAlert("Cảnh báo", "Bạn có chắc muốn xóa giao dịch này?", "confirm", () => {
+    showAlert("Xác nhận", "Bạn có chắc muốn xóa giao dịch này?", "confirm", () => {
         transactions = transactions.filter(t => t.id !== id);
         localStorage.setItem("transactions", JSON.stringify(transactions));
         renderHistory();
